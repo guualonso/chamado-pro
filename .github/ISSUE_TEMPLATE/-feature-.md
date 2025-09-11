@@ -1,7 +1,7 @@
 ---
 name: "[FEATURE]"
 about: Edite a Feature
-title: ''
+title: "[FEATURE]"
 labels: feature
 assignees: ''
 

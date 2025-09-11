@@ -1,7 +1,7 @@
 ---
 name: "[BUGFIX]"
 about: Manutenção dos bugs
-title: ''
+title: "[BUGFIX]"
 labels: bugfix
 assignees: ''
 
