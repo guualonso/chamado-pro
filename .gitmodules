@@ -1,0 +1,3 @@
+[submodule "CHP/3.Implementacao/chamado-pro-frontend"]
+	path = CHP/3.Implementacao/chamado-pro-frontend
+	url = https://github.com/chiclete1802/chamado-pro-frontend.git
