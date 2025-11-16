@@ -1,0 +1,41 @@
+version: "3.8"
+
+services:
+
+  db:
+    image: postgres:16
+    container_name: chamado-db
+    restart: always
+    environment:
+      POSTGRES_DB: chamado_pro
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: alonso
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  backend:
+    build: ./chamado-pro-backend
+    container_name: backend
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/chamado_pro
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: alonso
+    depends_on:
+      - db
+
+  frontend:
+    build: ./chamado-pro-frontend
+    container_name: frontend
+    ports:
+      - "80:80"
+    environment:
+      API_URL: http://backend:8080
+    depends_on:
+      - backend
+
+volumes:
+  pgdata:
