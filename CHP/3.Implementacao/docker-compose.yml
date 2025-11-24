@@ -18,6 +18,7 @@ services:
   backend:
     build: ./chamado-pro-backend
     container_name: backend
+    restart: always
     ports:
       - "8080:8080"
     environment:
@@ -30,6 +31,7 @@ services:
   frontend:
     build: ./chamado-pro-frontend
     container_name: frontend
+    restart: always
     ports:
       - "80:80"
     environment:
