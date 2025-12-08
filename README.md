@@ -14,7 +14,7 @@ O **Chamado-Pro** permite que usuários registrem chamados, acompanhem seu statu
 ## 🧩 Tecnologias Utilizadas
 
 ### **Backend — Java / Spring Boot**
-- Spring Boot 3+
+- Spring Boot
 - Spring Web
 - Spring Data JPA
 - Spring Security + JWT
@@ -25,7 +25,7 @@ O **Chamado-Pro** permite que usuários registrem chamados, acompanhem seu statu
 **Principais recursos do backend:**
 - API REST com endpoints protegidos por JWT
 - Persistência com JPA e PostgreSQL
-- Camadas organizadas (Controller, Service, Repository)
+- Camadas organizadas (Controller, Service, Repository, Model)
 - Tratamento global de exceções
 - Autenticação e autorização robustas
 
@@ -35,7 +35,7 @@ O **Chamado-Pro** permite que usuários registrem chamados, acompanhem seu statu
 - Angular 17+
 - TypeScript
 - RxJS
-- Angular Material (opcional)
+- Angular Material
 - HTML & SCSS
 
 **Principais recursos do frontend:**
@@ -76,18 +76,28 @@ A aplicação conta com uma infraestrutura sólida hospedada na AWS, garantindo 
 - Tabelas de roteamento configuradas
 - Segurança via Security Groups
 
-#### **IAM**
-- Políticas seguras para acesso a EC2, ASG e RDS
-- Usuários e permissões organizadas
-
-#### **S3 (opcional)**
+#### **S3 (futuramente)**
 - Possibilidade de hospedar o frontend Angular
 - Armazenamento de estáticos
 
-### **Testes de Carga (K6 + Grafana)**
+### NAT Gateway e Internet Gateway
+O projeto **Chamado-Pro** utiliza uma arquitetura em VPC que garante segurança e controle de tráfego. Dois componentes fundamentais são:
+
+  ### 🔹 Internet Gateway (IGW)
+  Usado pelas **subnets públicas**, permitindo que o ALB e demais recursos que precisam ser expostos recebam e enviem tráfego para a internet.
+
+  ### 🔹 NAT Gateway (NAT-GW)
+  Usado pelas **subnets privadas**, permitindo que instâncias internas (como EC2 de backend ou serviços auxiliares) acessem a internet **sem ficarem expostas**. Isso é importante para:
+  - Atualizações de pacotes
+  - Maven / npm install
+  - Comunicação com APIs externas
+
+Essa separação garante uma arquitetura segura, mantendo o backend protegido e acessível apenas via Load Balancer, enquanto o frontend e ALB permanecem acessíveis ao público quando necessário.
+
+### *Testes de Carga (K6 + Grafana)*
 O sistema passou por testes de estresse utilizando **k6**:
 ```
-k6 run --vus 200 --duration 3m stress.js
+k6 run --vus 2000 --duration 3m stress.js
 ```
 Script utilizado:
 ```javascript
@@ -153,8 +163,7 @@ Próximos passos:
 
 ---
 
-## 👨‍💻 Autor
-Desenvolvido por **Gustavo Alonso (@guualonso)**.
+## 👨‍💻 Autores
+Desenvolvido por **Gustavo Alonso (@guualonso) e João Paulo (@joao-paulo-yudi)**.
 
-Sinta-se à vontade para contribuir, abrir issues e sugerir melhorias!
 
